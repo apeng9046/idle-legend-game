@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private ShopManager shopManager;
     [SerializeField] private OfflineEarningsManager offlineEarningsManager;
+    [SerializeField] private HeroAdvancementSystem heroAdvancementSystem;
+    [SerializeField] private SocialSystem socialSystem;
 
     private void Awake()
     {
@@ -39,6 +41,8 @@ public class GameManager : MonoBehaviour
         uiManager?.Initialize();
         shopManager?.Initialize();
         offlineEarningsManager?.Initialize();
+        heroAdvancementSystem?.Initialize();
+        socialSystem?.Initialize();
         
         // 初始化配置系统
         HeroConfig.Initialize();
@@ -49,6 +53,13 @@ public class GameManager : MonoBehaviour
         if (offlineEarningsManager != null)
         {
             offlineEarningsManager.CalculateAndApplyOfflineEarnings(playerData);
+            offlineEarningsManager.UpdateLastLoginTime();
+        }
+
+        // 更新玩家档案
+        if (socialSystem != null && playerData != null)
+        {
+            socialSystem.UpdatePlayerProfile(playerData);
         }
 
         Debug.Log("[GameManager] 游戏初始化完成");
@@ -56,26 +67,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // 离线收益计算
-        HandleOfflineEarnings();
-        
         // 自动战斗
         battleManager?.Update();
     }
 
-    /// <summary>
-    /// 处理离线收益
-    /// </summary>
-    private void HandleOfflineEarnings()
-    {
-        // 已在登录时计算
-    }
-
-    // Getters
+    // 系统访问接口
     public PlayerData GetPlayerData() => playerData;
     public LevelManager GetLevelManager() => levelManager;
     public BattleManager GetBattleManager() => battleManager;
     public UIManager GetUIManager() => uiManager;
     public ShopManager GetShopManager() => shopManager;
     public OfflineEarningsManager GetOfflineEarningsManager() => offlineEarningsManager;
+    public HeroAdvancementSystem GetHeroAdvancementSystem() => heroAdvancementSystem;
+    public SocialSystem GetSocialSystem() => socialSystem;
 }
