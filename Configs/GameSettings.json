@@ -1,0 +1,33 @@
+{
+  "gameTitle": "山海传奇游戏",
+  "version": "0.1.0",
+  "language": "zh-CN",
+  "gameSettings": {
+    "totalLevels": 1000,
+    "levelsPerChapter": 50,
+    "totalChapters": 20,
+    "autoSaveInterval": 60,
+    "offlineEarningsMultiplier": 0.1
+  },
+  "battleSettings": {
+    "baseAttackSpeed": 1.0,
+    "maxTeamSize": 5,
+    "autoSkipBattle": true
+  },
+  "economySettings": {
+    "startingGold": 1000,
+    "startingGems": 100,
+    "goldMultiplier": 1.05,
+    "expMultiplier": 1.05
+  },
+  "heroSettings": {
+    "totalHeroes": 50,
+    "startingHeroId": 1,
+    "maxHeroLevel": 100,
+    "rarities": [1, 2, 3, 4, 5]
+  },
+  "monsterSettings": {
+    "totalMonsters": 200,
+    "difficultyMultiplier": 1.01
+  }
+}
