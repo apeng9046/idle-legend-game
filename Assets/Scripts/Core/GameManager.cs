@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private BattleManager battleManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private ShopManager shopManager;
+    [SerializeField] private OfflineEarningsManager offlineEarningsManager;
 
     private void Awake()
     {
@@ -35,6 +37,19 @@ public class GameManager : MonoBehaviour
         levelManager?.Initialize();
         battleManager?.Initialize();
         uiManager?.Initialize();
+        shopManager?.Initialize();
+        offlineEarningsManager?.Initialize();
+        
+        // 初始化配置系统
+        HeroConfig.Initialize();
+        SkillConfig.Initialize();
+        MonsterConfig.Initialize();
+
+        // 计算离线收益
+        if (offlineEarningsManager != null)
+        {
+            offlineEarningsManager.CalculateAndApplyOfflineEarnings(playerData);
+        }
 
         Debug.Log("[GameManager] 游戏初始化完成");
     }
@@ -53,26 +68,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void HandleOfflineEarnings()
     {
-        // 待实现: 计算玩家离线期间的收益
+        // 已在登录时计算
     }
 
-    /// <summary>
-    /// 获取玩家数据
-    /// </summary>
+    // Getters
     public PlayerData GetPlayerData() => playerData;
-
-    /// <summary>
-    /// 获取关卡管理器
-    /// </summary>
     public LevelManager GetLevelManager() => levelManager;
-
-    /// <summary>
-    /// 获取战斗管理器
-    /// </summary>
     public BattleManager GetBattleManager() => battleManager;
-
-    /// <summary>
-    /// 获取UI管理器
-    /// </summary>
     public UIManager GetUIManager() => uiManager;
+    public ShopManager GetShopManager() => shopManager;
+    public OfflineEarningsManager GetOfflineEarningsManager() => offlineEarningsManager;
 }
